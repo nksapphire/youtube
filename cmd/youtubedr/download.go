@@ -34,12 +34,17 @@ func init() {
 	downloadCmd.Flags().StringVarP(&outputDir, "directory", "d", ".", "The output directory.")
 	addQualityFlag(downloadCmd.Flags())
 	addMimeTypeFlag(downloadCmd.Flags())
+	addAudioOnlyFlag(downloadCmd.Flags())
 }
 
 func download(id string) error {
 	video, format, err := getVideoWithFormat(id)
 	if err != nil {
 		return err
+	}
+
+	if downloadAudioOnly {
+		format = video.Formats.FindAudioWithQuality("AUDIO_QUALITY_MEDIUM")
 	}
 
 	log.Println("download to directory", outputDir)
