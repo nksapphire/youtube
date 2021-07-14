@@ -21,6 +21,7 @@ var (
 	insecureSkipVerify bool   // skip TLS server validation
 	outputQuality      string // itag number or quality string
 	mimetype           string // mimetype
+	downloadAudioOnly  bool   // If downloading the audio only
 	downloader         *ytdl.Downloader
 )
 
@@ -30,6 +31,10 @@ func addQualityFlag(flagSet *pflag.FlagSet) {
 
 func addMimeTypeFlag(flagSet *pflag.FlagSet) {
 	flagSet.StringVarP(&mimetype, "mimetype", "m", "mp4", "Mime-Type to filter (mp4, webm, av01, avc1) - applicable if --quality used is quality label")
+}
+
+func addAudioOnlyFlag(flagset *pflag.FlagSet) {
+	flagset.BoolVarP(&downloadAudioOnly, "audioOnly", "a", false, "download the audio only")
 }
 
 func getDownloader() *ytdl.Downloader {

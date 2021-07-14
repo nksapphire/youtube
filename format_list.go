@@ -18,6 +18,16 @@ func (list FormatList) FindByQuality(quality string) *Format {
 	return nil
 }
 
+// FindByQuality returns the first format matching Quality or QualityLabel
+func (list FormatList) FindAudioWithQuality(quality string) *Format {
+	for i := range list {
+		if strings.Contains(list[i].MimeType, "audio/") && list[i].AudioQuality == quality {
+			return &list[i]
+		}
+	}
+	return nil
+}
+
 // FindByItag returns the first format matching the itag number
 func (list FormatList) FindByItag(itagNo int) *Format {
 	for i := range list {
